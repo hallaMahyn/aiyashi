@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "inquiries#index"
 
-    resources :inquiries, only: [:index, :show, :update, :destroy] do
+    resources :inquiries, only: [:index, :show, :new, :create, :update, :destroy] do
       member { patch :update_status }
     end
 

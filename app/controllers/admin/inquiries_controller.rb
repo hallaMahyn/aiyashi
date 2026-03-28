@@ -28,9 +28,30 @@ class Admin::InquiriesController < Admin::BaseController
     end
   end
 
+  def new
+    @inquiry = Inquiry.new
+    @services = Service.active.ordered
+  end
+
+  def create
+    @inquiry = Inquiry.new(inquiry_params)
+    if @inquiry.save
+      redirect_to admin_inquiry_path(@inquiry), notice: "Заявка добавлена."
+    else
+      @services = Service.active.ordered
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @inquiry = Inquiry.find(params[:id])
     @inquiry.destroy
     redirect_to admin_inquiries_path, notice: "Заявка удалена."
+  end
+
+  private
+
+  def inquiry_params
+    params.require(:inquiry).permit(:name, :phone, :email, :service_id, :message, :status)
   end
 end

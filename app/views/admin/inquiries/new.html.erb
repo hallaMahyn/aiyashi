@@ -1,0 +1,65 @@
+<% content_for :page_title, "Новая заявка" %>
+<% content_for :header_actions do %>
+  <%= link_to admin_inquiries_path, class: "text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1" do %>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    К заявкам
+  <% end %>
+<% end %>
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 max-w-2xl">
+  <%= form_with model: [:admin, @inquiry], class: "space-y-5" do |f| %>
+    <% if @inquiry.errors.any? %>
+      <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+        <ul class="list-disc list-inside space-y-1">
+          <% @inquiry.errors.full_messages.each do |msg| %>
+            <li class="text-red-700 text-sm"><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <%= f.label :name, "Имя *", class: "form-label" %>
+        <%= f.text_field :name, class: "form-input", required: true %>
+      </div>
+      <div>
+        <%= f.label :phone, "Телефон *", class: "form-label" %>
+        <%= f.telephone_field :phone, class: "form-input", required: true %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :email, "Email", class: "form-label" %>
+      <%= f.email_field :email, class: "form-input" %>
+    </div>
+
+    <div>
+      <%= f.label :service_id, "Услуга", class: "form-label" %>
+      <%= f.select :service_id,
+            options_from_collection_for_select(@services, :id, :name),
+            { include_blank: "Не выбрана" },
+            class: "form-input" %>
+    </div>
+
+    <div>
+      <%= f.label :message, "Сообщение", class: "form-label" %>
+      <%= f.text_area :message, rows: 3, class: "form-input resize-none" %>
+    </div>
+
+    <div>
+      <%= f.label :status, "Статус", class: "form-label" %>
+      <%= f.select :status,
+            Inquiry::STATUS_LABELS.map { |k, v| [v[:text], k] },
+            { selected: "new_inquiry" },
+            class: "form-input" %>
+    </div>
+
+    <div class="flex gap-3 pt-2 border-t border-gray-100">
+      <%= f.submit "Добавить заявку", class: "btn-primary cursor-pointer" %>
+      <%= link_to "Отмена", admin_inquiries_path, class: "btn-secondary border border-gray-200" %>
+    </div>
+  <% end %>
+</div>
