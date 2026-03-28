@@ -50,6 +50,11 @@
     </div>
 
     <div>
+      <%= f.label :note, "Заметка (только для админа)", class: "form-label" %>
+      <%= f.text_area :note, rows: 2, class: "form-input resize-none", placeholder: "Внутренние пометки..." %>
+    </div>
+
+    <div>
       <%= f.label :status, "Статус", class: "form-label" %>
       <%= f.select :status,
             Inquiry::STATUS_LABELS.map { |k, v| [v[:text], k] },

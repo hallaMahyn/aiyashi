@@ -43,6 +43,15 @@ class Admin::InquiriesController < Admin::BaseController
     end
   end
 
+  def update
+    @inquiry = Inquiry.find(params[:id])
+    if @inquiry.update(inquiry_params)
+      redirect_to admin_inquiry_path(@inquiry), notice: "Заметка сохранена."
+    else
+      redirect_to admin_inquiry_path(@inquiry), alert: "Не удалось сохранить."
+    end
+  end
+
   def destroy
     @inquiry = Inquiry.find(params[:id])
     @inquiry.destroy
@@ -52,6 +61,6 @@ class Admin::InquiriesController < Admin::BaseController
   private
 
   def inquiry_params
-    params.require(:inquiry).permit(:name, :phone, :email, :service_id, :message, :status)
+    params.require(:inquiry).permit(:name, :phone, :email, :service_id, :message, :status, :note)
   end
 end
