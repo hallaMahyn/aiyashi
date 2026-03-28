@@ -1,0 +1,1796 @@
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-03-28 09:17:04.577362', '2026-03-28 09:17:04.577364') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateActiveStorageTables (20260328091625)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "filename" varchar NOT NULL, "content_type" varchar, "metadata" text, "service_name" varchar NOT NULL, "byte_size" bigint NOT NULL, "checksum" varchar, "created_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" bigint NOT NULL, "variation_digest" varchar NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260328091625') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to DeviseCreateAdmins (20260328091629)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "admins" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime(6), "last_sign_in_at" datetime(6), "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "failed_attempts" integer DEFAULT 0 NOT NULL, "unlock_token" varchar, "locked_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admins_on_email" ON "admins" ("email")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admins_on_unlock_token" ON "admins" ("unlock_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260328091629') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateServices (20260328091630)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "services" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "description" text, "category" varchar NOT NULL, "price_rub" decimal(10,2), "position" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_services_on_category" ON "services" ("category")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_services_on_position" ON "services" ("position")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_services_on_active" ON "services" ("active")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260328091630') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateInquiries (20260328091631)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "inquiries" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "phone" varchar NOT NULL, "email" varchar, "service_id" integer, "message" text, "status" integer DEFAULT 0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_def343947f"
+FOREIGN KEY ("service_id")
+  REFERENCES "services" ("id")
+)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_inquiries_on_service_id" ON "inquiries" ("service_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_inquiries_on_status" ON "inquiries" ("status")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_inquiries_on_created_at" ON "inquiries" ("created_at")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260328091631') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "admin@aiyashi.ru"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdmin Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "admin@aiyashi.ru"], ["LIMIT", 1]]
+  [1m[36mAdmin Create (0.3ms)[0m  [1m[32mINSERT INTO "admins" ("email", "encrypted_password", "sign_in_count", "current_sign_in_at", "last_sign_in_at", "current_sign_in_ip", "last_sign_in_ip", "failed_attempts", "unlock_token", "locked_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["email", "admin@aiyashi.ru"], ["encrypted_password", "[FILTERED]"], ["sign_in_count", 0], ["current_sign_in_at", nil], ["last_sign_in_at", nil], ["current_sign_in_ip", nil], ["last_sign_in_ip", nil], ["failed_attempts", 0], ["unlock_token", "[FILTERED]"], ["locked_at", nil], ["created_at", "2026-03-28 09:26:12.802339"], ["updated_at", "2026-03-28 09:26:12.802339"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Имплантация зубов"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.1ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Имплантация зубов"], ["description", "Имплантация зубов по немецким и корейским технологиям в ведущих стоматологических клиниках Харбина. Стоимость в 2–3 раза ниже российских цен при сопоставимом качестве."], ["category", "dentistry"], ["price_rub", 45000.0], ["position", 0], ["active", 1], ["created_at", "2026-03-28 09:26:12.829875"], ["updated_at", "2026-03-28 09:26:12.829875"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Протезирование и коронки"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.5ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Протезирование и коронки"], ["description", "Металлокерамические и безметалловые коронки, мосты и съёмные протезы. Быстрое изготовление в собственной зуботехнической лаборатории."], ["category", "dentistry"], ["price_rub", 12000.0], ["position", 1], ["active", 1], ["created_at", "2026-03-28 09:26:12.831204"], ["updated_at", "2026-03-28 09:26:12.831204"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Лазерная коррекция зрения LASIK"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.3ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Лазерная коррекция зрения LASIK"], ["description", "Безболезненная лазерная коррекция зрения с использованием оборудования Bausch+Lomb. Восстановление зрения уже на следующий день после операции."], ["category", "ophthalmology"], ["price_rub", 85000.0], ["position", 2], ["active", 1], ["created_at", "2026-03-28 09:26:12.832681"], ["updated_at", "2026-03-28 09:26:12.832681"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Хирургия катаракты"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.3ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Хирургия катаракты"], ["description", "Факоэмульсификация катаракты с имплантацией интраокулярной линзы. Операция занимает 15–20 минут, госпитализация не требуется."], ["category", "ophthalmology"], ["price_rub", 90000.0], ["position", 3], ["active", 1], ["created_at", "2026-03-28 09:26:12.833898"], ["updated_at", "2026-03-28 09:26:12.833898"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Эндопротезирование суставов"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.3ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Эндопротезирование суставов"], ["description", "Тотальное эндопротезирование тазобедренного и коленного суставов протезами ведущих производителей. Полная реабилитация под наблюдением китайских специалистов."], ["category", "orthopedics"], ["price_rub", 350000.0], ["position", 4], ["active", 1], ["created_at", "2026-03-28 09:26:12.835010"], ["updated_at", "2026-03-28 09:26:12.835010"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Лечение онкологии"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.3ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Лечение онкологии"], ["description", "Химиотерапия, лучевая терапия, таргетная терапия и иммунотерапия в специализированных онкологических центрах. Стоимость рассчитывается индивидуально."], ["category", "oncology"], ["price_rub", nil], ["position", 5], ["active", 1], ["created_at", "2026-03-28 09:26:12.836109"], ["updated_at", "2026-03-28 09:26:12.836109"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Пластическая хирургия"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.3ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Пластическая хирургия"], ["description", "Ринопластика, блефаропластика, подтяжка лица, коррекция контуров тела. Работа с ведущими пластическими хирургами Китая."], ["category", "cosmetic"], ["price_rub", 120000.0], ["position", 6], ["active", 1], ["created_at", "2026-03-28 09:26:12.837202"], ["updated_at", "2026-03-28 09:26:12.837202"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."name" = ? LIMIT ?[0m  [["name", "Комплексный чекап"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mService Create (0.3ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Комплексный чекап"], ["description", "Полное медицинское обследование организма за 2–3 дня: анализы крови, МРТ, КТ, УЗИ, ЭКГ, консультации специалистов. Идеально для профилактики и раннего выявления заболеваний."], ["category", "checkup"], ["price_rub", 55000.0], ["position", 7], ["active", 1], ["created_at", "2026-03-28 09:26:12.838281"], ["updated_at", "2026-03-28 09:26:12.838281"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mService Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "services"[0m
+  [1m[36mService Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "services"[0m
+  [1m[36mAdmin Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "admins"[0m
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" ORDER BY "services"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+Started GET "/" for ::1 at 2026-03-28 13:28:19 +0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as */*
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 25.6ms | Allocations: 22541)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 707)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 200)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 837)
+  Rendered layout layouts/application.html.erb (Duration: 151.1ms | Allocations: 150464)
+Completed 200 OK in 167ms (Views: 153.9ms | ActiveRecord: 1.7ms | Allocations: 169379)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:31:30 +0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 12.3ms | Allocations: 18818)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 689)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 182)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 819)
+  Rendered layout layouts/application.html.erb (Duration: 51.8ms | Allocations: 82158)
+Completed 200 OK in 66ms (Views: 52.6ms | ActiveRecord: 1.8ms | Allocations: 97451)
+
+
+Started GET "/services?category=ophthalmology" for 127.0.0.1 at 2026-03-28 13:31:49 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"ophthalmology"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.8ms | Allocations: 2527)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 15.0ms | Allocations: 7557)
+Completed 200 OK in 19ms (Views: 15.2ms | ActiveRecord: 0.3ms | Allocations: 8482)
+
+
+Started GET "/services?category=dentistry" for 127.0.0.1 at 2026-03-28 13:31:49 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"dentistry"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 4.5ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 9.3ms | Allocations: 4595)
+Completed 200 OK in 14ms (Views: 9.9ms | ActiveRecord: 0.5ms | Allocations: 5444)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:31:52 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 10.7ms | Allocations: 6756)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 14.1ms | Allocations: 9302)
+Completed 200 OK in 16ms (Views: 13.6ms | ActiveRecord: 0.9ms | Allocations: 9701)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:31:53 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 11.2ms | Allocations: 6425)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 14.9ms | Allocations: 9144)
+Completed 200 OK in 18ms (Views: 14.5ms | ActiveRecord: 1.0ms | Allocations: 9993)
+
+
+Started GET "/about" for 127.0.0.1 at 2026-03-28 13:31:53 +0400
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 14.1ms | Allocations: 689)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 17.6ms | Allocations: 3427)
+Completed 200 OK in 20ms (Views: 18.1ms | ActiveRecord: 0.0ms | Allocations: 3742)
+
+
+Started GET "/services?category=dentistry" for 127.0.0.1 at 2026-03-28 13:31:54 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"dentistry"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.3ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | Allocations: 4596)
+Completed 200 OK in 11ms (Views: 8.7ms | ActiveRecord: 0.5ms | Allocations: 5435)
+
+
+Started GET "/services?category=ophthalmology" for 127.0.0.1 at 2026-03-28 13:31:55 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"ophthalmology"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.3ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 1.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | Allocations: 4599)
+Completed 200 OK in 12ms (Views: 9.8ms | ActiveRecord: 0.4ms | Allocations: 5437)
+
+
+Started GET "/services?category=ophthalmology" for 127.0.0.1 at 2026-03-28 13:31:55 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"ophthalmology"}
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.3ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 4599)
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.3ms | Allocations: 5436)
+
+
+Started GET "/services?category=orthopedics" for 127.0.0.1 at 2026-03-28 13:31:56 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"orthopedics"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1127)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.8ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.1ms | Allocations: 3819)
+Completed 200 OK in 11ms (Views: 8.4ms | ActiveRecord: 0.4ms | Allocations: 4656)
+
+
+Started GET "/services?category=oncology" for 127.0.0.1 at 2026-03-28 13:31:56 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"oncology"}
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1114)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.6ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | Allocations: 3818)
+Completed 200 OK in 10ms (Views: 8.0ms | ActiveRecord: 0.3ms | Allocations: 4666)
+
+
+Started GET "/services?category=cosmetic" for 127.0.0.1 at 2026-03-28 13:31:57 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"cosmetic"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.2ms | Allocations: 1127)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.0ms | Allocations: 3831)
+Completed 200 OK in 11ms (Views: 8.4ms | ActiveRecord: 0.4ms | Allocations: 4668)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2026-03-28 13:32:01 +0400
+Processing by PagesController#contacts as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/contacts.html.erb within layouts/application
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/contacts.html.erb:115
+  Rendered pages/contacts.html.erb within layouts/application (Duration: 18.3ms | Allocations: 4201)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 21.6ms | Allocations: 6769)
+Completed 200 OK in 25ms (Views: 22.0ms | ActiveRecord: 0.1ms | Allocations: 7166)
+
+
+Started GET "/services?category=checkup" for 127.0.0.1 at 2026-03-28 13:32:01 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"checkup"}
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.7ms | Allocations: 1127)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 9.1ms | Allocations: 3858)
+Completed 200 OK in 12ms (Views: 9.3ms | ActiveRecord: 0.4ms | Allocations: 4697)
+
+
+Started GET "/services?category=cosmetic" for 127.0.0.1 at 2026-03-28 13:32:02 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"cosmetic"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1127)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | Allocations: 3840)
+Completed 200 OK in 11ms (Views: 7.3ms | ActiveRecord: 0.4ms | Allocations: 4678)
+
+
+Started GET "/services?category=oncology" for 127.0.0.1 at 2026-03-28 13:32:03 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"oncology"}
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 1.9ms | Allocations: 1114)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 5.3ms | Allocations: 3816)
+Completed 200 OK in 9ms (Views: 5.5ms | ActiveRecord: 0.2ms | Allocations: 4653)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:32:06 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 5.2ms | Allocations: 6746)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.2ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 6.9ms | Allocations: 9292)
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 0.3ms | Allocations: 9690)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:33:08 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 8.9ms | Allocations: 6425)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 12.3ms | Allocations: 9138)
+Completed 200 OK in 16ms (Views: 12.1ms | ActiveRecord: 0.8ms | Allocations: 9974)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2026-03-28 13:33:19 +0400
+Processing by PagesController#contacts as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/contacts.html.erb within layouts/application
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/contacts.html.erb:115
+  Rendered pages/contacts.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1471)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | Allocations: 4039)
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.1ms | Allocations: 4371)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:33:20 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 10.6ms | Allocations: 6425)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 14.5ms | Allocations: 9145)
+Completed 200 OK in 17ms (Views: 13.2ms | ActiveRecord: 1.8ms | Allocations: 10024)
+
+
+Started GET "/about" for 127.0.0.1 at 2026-03-28 13:33:24 +0400
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.2ms | Allocations: 131)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | Allocations: 2839)
+Completed 200 OK in 5ms (Views: 4.9ms | ActiveRecord: 0.0ms | Allocations: 3088)
+
+
+Started GET "/services?category=dentistry" for 127.0.0.1 at 2026-03-28 13:33:27 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"dentistry"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.5ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.1ms | Allocations: 4595)
+Completed 200 OK in 11ms (Views: 8.3ms | ActiveRecord: 0.4ms | Allocations: 5432)
+
+
+Started GET "/services?category=ophthalmology" for 127.0.0.1 at 2026-03-28 13:33:28 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"ophthalmology"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.7ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 9.7ms | Allocations: 4595)
+Completed 200 OK in 13ms (Views: 9.9ms | ActiveRecord: 0.4ms | Allocations: 5433)
+
+
+Started GET "/services?category=orthopedics" for 127.0.0.1 at 2026-03-28 13:33:29 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"orthopedics"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1127)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | Allocations: 3843)
+Completed 200 OK in 13ms (Views: 9.9ms | ActiveRecord: 0.4ms | Allocations: 4680)
+
+
+Started GET "/services?category=oncology" for 127.0.0.1 at 2026-03-28 13:33:30 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"oncology"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1114)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 12.2ms | Allocations: 3833)
+Completed 200 OK in 15ms (Views: 12.5ms | ActiveRecord: 0.4ms | Allocations: 4671)
+
+
+Started GET "/services?category=dentistry" for 127.0.0.1 at 2026-03-28 13:33:31 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"dentistry"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.8ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.9ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 7.9ms | Allocations: 4590)
+Completed 200 OK in 12ms (Views: 8.2ms | ActiveRecord: 0.4ms | Allocations: 5429)
+
+
+Started GET "/services?category=ophthalmology" for 127.0.0.1 at 2026-03-28 13:34:02 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"ophthalmology"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 3.5ms | Allocations: 1885)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | Allocations: 4601)
+Completed 200 OK in 11ms (Views: 8.6ms | ActiveRecord: 0.4ms | Allocations: 5438)
+
+
+Started GET "/about" for 127.0.0.1 at 2026-03-28 13:34:03 +0400
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.2ms | Allocations: 131)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | Allocations: 2835)
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.0ms | Allocations: 3084)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:34:15 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 10.7ms | Allocations: 6765)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 14.8ms | Allocations: 9311)
+Completed 200 OK in 17ms (Views: 14.7ms | ActiveRecord: 0.9ms | Allocations: 9709)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:35:18 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 13.4ms | Allocations: 6425)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 17.3ms | Allocations: 9129)
+Completed 200 OK in 20ms (Views: 16.6ms | ActiveRecord: 1.3ms | Allocations: 9965)
+
+
+Started GET "/about" for 127.0.0.1 at 2026-03-28 13:36:24 +0400
+Processing by PagesController#about as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/about.html.erb within layouts/application
+  Rendered pages/about.html.erb within layouts/application (Duration: 0.2ms | Allocations: 131)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.1ms | Allocations: 2837)
+Completed 200 OK in 9ms (Views: 8.5ms | ActiveRecord: 0.0ms | Allocations: 3086)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:36:26 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 11.8ms | Allocations: 6425)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 14.9ms | Allocations: 9152)
+Completed 200 OK in 18ms (Views: 14.5ms | ActiveRecord: 1.0ms | Allocations: 9991)
+
+
+Started GET "/services?category=cosmetic" for 127.0.0.1 at 2026-03-28 13:37:35 +0400
+Processing by PagesController#services as HTML
+  Parameters: {"category"=>"cosmetic"}
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1127)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 6.4ms | Allocations: 3837)
+Completed 200 OK in 11ms (Views: 6.9ms | ActiveRecord: 0.4ms | Allocations: 4678)
+
+
+Started GET "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:37:47 +0400
+Processing by Admins::SessionsController#new as HTML
+  Rendering layout layouts/admin_auth.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/admin_auth
+  Rendered devise/sessions/new.html.erb within layouts/admin_auth (Duration: 2.7ms | Allocations: 1274)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 12)
+  Rendered layout layouts/admin_auth.html.erb (Duration: 4.5ms | Allocations: 3266)
+Completed 200 OK in 13ms (Views: 6.2ms | ActiveRecord: 0.3ms | Allocations: 11755)
+
+
+Started POST "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:37:49 +0400
+Processing by Admins::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  [1m[36mAdmin Load (0.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."email" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["email", "admin@admin.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.4ms | Allocations: 2101)
+
+
+Processing by Admins::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  Rendering layout layouts/admin_auth.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/admin_auth
+  Rendered devise/sessions/new.html.erb within layouts/admin_auth (Duration: 0.4ms | Allocations: 385)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 15)
+  Rendered layout layouts/admin_auth.html.erb (Duration: 1.6ms | Allocations: 2148)
+Completed 200 OK in 203ms (Views: 1.8ms | ActiveRecord: 0.0ms | Allocations: 3069)
+
+
+Started POST "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:37:56 +0400
+Processing by Admins::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."email" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["email", "admin@admin.com"], ["LIMIT", 1]]
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.2ms | Allocations: 1498)
+
+
+Processing by Admins::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@admin.com", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  Rendering layout layouts/admin_auth.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/admin_auth
+  Rendered devise/sessions/new.html.erb within layouts/admin_auth (Duration: 0.4ms | Allocations: 375)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 15)
+  Rendered layout layouts/admin_auth.html.erb (Duration: 1.6ms | Allocations: 2134)
+Completed 200 OK in 210ms (Views: 2.1ms | ActiveRecord: 0.0ms | Allocations: 2571)
+
+
+Started POST "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:38:04 +0400
+Processing by Admins::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@aiyashi.ru", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."email" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["email", "admin@aiyashi.ru"], ["LIMIT", 1]]
+  [1m[36mAdmin Update All (1.3ms)[0m  [1m[33mUPDATE "admins" SET "failed_attempts" = COALESCE("failed_attempts", 0) + ? WHERE "admins"."id" = ?[0m  [["failed_attempts", 1], ["id", 1]]
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 401 Unauthorized in 224ms (ActiveRecord: 1.7ms | Allocations: 4920)
+
+
+Processing by Admins::SessionsController#new as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@aiyashi.ru", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  Rendering layout layouts/admin_auth.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/admin_auth
+  Rendered devise/sessions/new.html.erb within layouts/admin_auth (Duration: 0.4ms | Allocations: 375)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 15)
+  Rendered layout layouts/admin_auth.html.erb (Duration: 1.5ms | Allocations: 2112)
+Completed 200 OK in 189ms (Views: 1.7ms | ActiveRecord: 0.0ms | Allocations: 2551)
+
+
+Started POST "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:38:39 +0400
+Processing by Admins::SessionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin"=>{"email"=>"admin@aiyashi.ru", "password"=>"[FILTERED]"}, "commit"=>"Войти"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."email" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["email", "admin@aiyashi.ru"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdmin Update (0.5ms)[0m  [1m[33mUPDATE "admins" SET "failed_attempts" = ?, "updated_at" = ? WHERE "admins"."id" = ?[0m  [["failed_attempts", 0], ["updated_at", "2026-03-28 09:38:39.256184"], ["id", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdmin Update (0.4ms)[0m  [1m[33mUPDATE "admins" SET "sign_in_count" = ?, "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "last_sign_in_ip" = ?, "updated_at" = ? WHERE "admins"."id" = ?[0m  [["sign_in_count", 1], ["current_sign_in_at", "2026-03-28 09:38:39.258472"], ["last_sign_in_at", "2026-03-28 09:38:39.258472"], ["current_sign_in_ip", "127.0.0.1"], ["last_sign_in_ip", "127.0.0.1"], ["updated_at", "2026-03-28 09:38:39.258512"], ["id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/admin
+Completed 303 See Other in 210ms (ActiveRecord: 2.6ms | Allocations: 19312)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-03-28 13:38:39 +0400
+Processing by Admin::InquiriesController#index as TURBO_STREAM
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 0.9ms | Allocations: 1633)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 162)
+  Rendered layout layouts/admin.html.erb (Duration: 10.0ms | Allocations: 36180)
+Completed 200 OK in 14ms (Views: 10.5ms | ActiveRecord: 0.6ms | Allocations: 42427)
+
+
+Started GET "/admin/inquiries?status=completed" for 127.0.0.1 at 2026-03-28 13:38:40 +0400
+Processing by Admin::InquiriesController#index as HTML
+  Parameters: {"status"=>"completed"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" WHERE "inquiries"."status" = ? LIMIT ? OFFSET ?[0m  [["status", 2], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.8ms | Allocations: 727)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.6ms | Allocations: 3099)
+Completed 200 OK in 10ms (Views: 4.8ms | ActiveRecord: 0.5ms | Allocations: 6897)
+
+
+Started GET "/admin/inquiries" for 127.0.0.1 at 2026-03-28 13:38:46 +0400
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 0.9ms | Allocations: 714)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.4ms | Allocations: 3060)
+Completed 200 OK in 12ms (Views: 4.6ms | ActiveRecord: 0.6ms | Allocations: 6733)
+
+
+Started GET "/admin/services" for 127.0.0.1 at 2026-03-28 13:38:47 +0400
+Processing by Admin::ServicesController#index as HTML
+  [1m[36mAdmin Load (0.7ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 404 Not Found in 7ms (ActiveRecord: 0.6ms | Allocations: 2336)
+
+
+  
+AbstractController::ActionNotFound (The show action could not be found for the :set_service
+callback on Admin::ServicesController, but it is listed in the controller's
+:only option.
+
+Raising for missing callback actions is a new default in Rails 7.1, if you'd
+like to turn this off you can delete the option from the environment configurations
+or set `config.action_controller.raise_on_missing_callback_actions` to `false`.
+):
+  
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:62:in `match?'
+activesupport (7.1.6) lib/active_support/callbacks.rb:426:in `block in make_lambda'
+activesupport (7.1.6) lib/active_support/callbacks.rb:182:in `block (2 levels) in halting_and_conditional'
+activesupport (7.1.6) lib/active_support/callbacks.rb:182:in `all?'
+activesupport (7.1.6) lib/active_support/callbacks.rb:182:in `block in halting_and_conditional'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+turbo-rails (2.0.23) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.1.6) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.1.6) lib/action_text/rendering.rb:23:in `with_renderer'
+actiontext (7.1.6) lib/action_text/engine.rb:69:in `block (4 levels) in <class:Engine>'
+activesupport (7.1.6) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.1.6) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.6) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.6) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.6) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.6) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.6) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.6) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.6) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.6) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.6) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:882:in `call'
+rack-attack (6.8.0) lib/rack/attack.rb:129:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.5) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.5) lib/rack/etag.rb:29:in `call'
+rack (3.2.5) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.5) lib/rack/head.rb:15:in `call'
+actionpack (7.1.6) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.6) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.6) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `block in tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in `method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.2.5) lib/rack/method_override.rb:28:in `call'
+rack (3.2.5) lib/rack/runtime.rb:24:in `call'
+activesupport (7.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.2.5) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.6) lib/rails/engine.rb:536:in `call'
+puma (7.2.0) lib/puma/configuration.rb:296:in `call'
+puma (7.2.0) lib/puma/request.rb:103:in `block in handle_request'
+puma (7.2.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.2.0) lib/puma/request.rb:102:in `handle_request'
+puma (7.2.0) lib/puma/server.rb:503:in `process_client'
+puma (7.2.0) lib/puma/server.rb:262:in `block in run'
+puma (7.2.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:41:24 +0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 11.0ms | Allocations: 19814)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 689)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 182)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 819)
+  Rendered layout layouts/application.html.erb (Duration: 36.9ms | Allocations: 76527)
+Completed 200 OK in 48ms (Views: 38.0ms | ActiveRecord: 1.4ms | Allocations: 91820)
+
+
+Started GET "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:41:43 +0400
+Processing by Admins::SessionsController#new as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admin
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 16ms (ActiveRecord: 0.5ms | Allocations: 11050)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-03-28 13:41:43 +0400
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 2.1ms | Allocations: 1610)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 27)
+  Rendered layout layouts/admin.html.erb (Duration: 5.3ms | Allocations: 4594)
+Completed 200 OK in 10ms (Views: 5.7ms | ActiveRecord: 0.3ms | Allocations: 8880)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-03-28 13:42:43 +0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.0ms | Allocations: 1934)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.2ms | Allocations: 190)
+  Rendered layout layouts/admin.html.erb (Duration: 20.0ms | Allocations: 57846)
+Completed 200 OK in 38ms (Views: 21.0ms | ActiveRecord: 1.5ms | Allocations: 80205)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-03-28 13:42:45 +0400
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 0.9ms | Allocations: 717)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.0ms | Allocations: 3089)
+Completed 200 OK in 24ms (Views: 4.2ms | ActiveRecord: 0.6ms | Allocations: 6771)
+
+
+Started GET "/admin/inquiries?status=cancelled" for 127.0.0.1 at 2026-03-28 13:42:47 +0400
+Processing by Admin::InquiriesController#index as HTML
+  Parameters: {"status"=>"cancelled"}
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 3]]
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" WHERE "inquiries"."status" = ? LIMIT ? OFFSET ?[0m  [["status", 3], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.1ms | Allocations: 724)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.2ms | Allocations: 3093)
+Completed 200 OK in 13ms (Views: 4.4ms | ActiveRecord: 0.8ms | Allocations: 6881)
+
+
+Started GET "/admin/auth/sign_in" for 127.0.0.1 at 2026-03-28 13:43:13 +0400
+Processing by Admins::SessionsController#new as HTML
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admin
+Filter chain halted as :require_no_authentication rendered or redirected
+Completed 302 Found in 10ms (ActiveRecord: 0.2ms | Allocations: 3859)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-03-28 13:43:13 +0400
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 0.7ms | Allocations: 714)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 26)
+  Rendered layout layouts/admin.html.erb (Duration: 4.0ms | Allocations: 3067)
+Completed 200 OK in 10ms (Views: 4.2ms | ActiveRecord: 0.5ms | Allocations: 6771)
+
+
+Started GET "/admin/inquiries?status=new_inquiry" for 127.0.0.1 at 2026-03-28 13:43:16 +0400
+Processing by Admin::InquiriesController#index as HTML
+  Parameters: {"status"=>"new_inquiry"}
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" WHERE "inquiries"."status" = ? LIMIT ? OFFSET ?[0m  [["status", 0], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.0ms | Allocations: 724)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.1ms | Allocations: 3070)
+Completed 200 OK in 13ms (Views: 4.4ms | ActiveRecord: 0.8ms | Allocations: 6858)
+
+
+Started GET "/admin/inquiries?status=in_progress" for 127.0.0.1 at 2026-03-28 13:43:17 +0400
+Processing by Admin::InquiriesController#index as HTML
+  Parameters: {"status"=>"in_progress"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" WHERE "inquiries"."status" = ? LIMIT ? OFFSET ?[0m  [["status", 1], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.4ms | Allocations: 724)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 5.7ms | Allocations: 3070)
+Completed 200 OK in 13ms (Views: 6.0ms | ActiveRecord: 0.7ms | Allocations: 6848)
+
+
+Started GET "/admin/inquiries?status=new_inquiry" for 127.0.0.1 at 2026-03-28 13:43:17 +0400
+Processing by Admin::InquiriesController#index as HTML
+  Parameters: {"status"=>"new_inquiry"}
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" WHERE "inquiries"."status" = ? LIMIT ? OFFSET ?[0m  [["status", 0], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.0ms | Allocations: 724)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 14.8ms | Allocations: 3086)
+Completed 200 OK in 23ms (Views: 15.0ms | ActiveRecord: 0.7ms | Allocations: 6865)
+
+
+Started GET "/admin/inquiries" for 127.0.0.1 at 2026-03-28 13:43:18 +0400
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 0.9ms | Allocations: 714)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.3ms | Allocations: 3075)
+Completed 200 OK in 12ms (Views: 4.5ms | ActiveRecord: 0.5ms | Allocations: 6737)
+
+
+Started GET "/admin/services" for 127.0.0.1 at 2026-03-28 13:43:19 +0400
+Processing by Admin::ServicesController#index as HTML
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/services/index.html.erb within layouts/admin
+  [1m[36mService Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "services" LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:12
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" ORDER BY "services"."position" ASC, "services"."name" ASC[0m
+  ↳ app/views/admin/services/index.html.erb:26
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  Rendered admin/services/index.html.erb within layouts/admin (Duration: 14.0ms | Allocations: 17845)
+  [1m[36mInquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 20)
+  Rendered layout layouts/admin.html.erb (Duration: 16.1ms | Allocations: 20268)
+Completed 200 OK in 32ms (Views: 15.8ms | ActiveRecord: 0.9ms | Allocations: 28447)
+
+
+Started GET "/admin/services" for 127.0.0.1 at 2026-03-28 13:43:21 +0400
+Processing by Admin::ServicesController#index as HTML
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/services/index.html.erb within layouts/admin
+  [1m[36mService Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "services" LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:12
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" ORDER BY "services"."position" ASC, "services"."name" ASC[0m
+  ↳ app/views/admin/services/index.html.erb:26
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  Rendered admin/services/index.html.erb within layouts/admin (Duration: 9.8ms | Allocations: 8789)
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 12.9ms | Allocations: 11200)
+Completed 200 OK in 18ms (Views: 12.7ms | ActiveRecord: 0.8ms | Allocations: 12823)
+
+
+Started GET "/admin/services/new" for 127.0.0.1 at 2026-03-28 13:43:24 +0400
+Processing by Admin::ServicesController#new as HTML
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/services/new.html.erb within layouts/admin
+  Rendered admin/services/_form.html.erb (Duration: 9.3ms | Allocations: 3165)
+  Rendered admin/services/new.html.erb within layouts/admin (Duration: 10.4ms | Allocations: 3528)
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered layout layouts/admin.html.erb (Duration: 13.6ms | Allocations: 5969)
+Completed 200 OK in 32ms (Views: 13.9ms | ActiveRecord: 0.4ms | Allocations: 7700)
+
+
+Started POST "/admin/services" for 127.0.0.1 at 2026-03-28 13:44:09 +0400
+Processing by Admin::ServicesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "service"=>{"name"=>"дать леща", "category"=>"dentistry", "price_rub"=>"13300", "description"=>"ну вот просто по голове ударят", "position"=>"0", "active"=>"1", "image"=>#<ActionDispatch::Http::UploadedFile:0x0000000125b36f48 @tempfile=#<Tempfile:/var/folders/3z/7p3c_k5d3ybbkz2z0ttz9yl40000gn/T/RackMultipart20260328-68921-shtger.jpg>, @content_type="image/jpeg", @original_filename="annon.jpg", @headers="Content-Disposition: form-data; name=\"service[image]\"; filename=\"annon.jpg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Добавить услугу"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mService Create (0.7ms)[0m  [1m[32mINSERT INTO "services" ("name", "description", "category", "price_rub", "position", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "дать леща"], ["description", "ну вот просто по голове ударят"], ["category", "dentistry"], ["price_rub", 13300.0], ["position", 0], ["active", 1], ["created_at", "2026-03-28 09:44:09.890605"], ["updated_at", "2026-03-28 09:44:09.890605"]]
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mActiveStorage::Blob Create (0.1ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "qx887oq6rzz7fczkncvkshtg8fpx"], ["filename", "annon.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 65939], ["checksum", "6c8SyyYFS6MtjJG2/mbL4A=="], ["created_at", "2026-03-28 09:44:09.905394"]]
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mActiveStorage::Attachment Create (0.0ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Service"], ["record_id", 9], ["blob_id", 1], ["created_at", "2026-03-28 09:44:09.906314"]]
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mService Update (0.0ms)[0m  [1m[33mUPDATE "services" SET "updated_at" = ? WHERE "services"."id" = ?[0m  [["updated_at", "2026-03-28 09:44:09.906903"], ["id", 9]]
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/admin/services_controller.rb:14:in `create'
+[36m  Disk Storage (0.5ms) [0m[32mUploaded file to key: qx887oq6rzz7fczkncvkshtg8fpx (checksum: 6c8SyyYFS6MtjJG2/mbL4A==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 80f6b852-f653-433f-9bfa-9d815474d649) to Async(default) with arguments: #<GlobalID:0x00000001256b4038 @uri=#<URI::GID gid://aiyashi/ActiveStorage::Blob/1>>
+[ActiveJob] ↳ app/controllers/admin/services_controller.rb:14:in `create'
+Redirected to http://localhost:3000/admin/services
+Completed 302 Found in 49ms (ActiveRecord: 1.7ms | Allocations: 34743)
+
+
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649] Performing ActiveStorage::AnalyzeJob (Job ID: 80f6b852-f653-433f-9bfa-9d815474d649) from Async(default) enqueued at 2026-03-28T09:44:09.925153000Z with arguments: #<GlobalID:0x0000000125630878 @uri=#<URI::GID gid://aiyashi/ActiveStorage::Blob/1>>
+Started GET "/admin/services" for 127.0.0.1 at 2026-03-28 13:44:09 +0400
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649] [36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: qx887oq6rzz7fczkncvkshtg8fpx[0m
+Processing by Admin::ServicesController#index as TURBO_STREAM
+  [1m[36mAdmin Load (0.4ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/services/index.html.erb within layouts/admin
+  [1m[36mService Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "services" LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:12
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" ORDER BY "services"."position" ASC, "services"."name" ASC[0m
+  ↳ app/views/admin/services/index.html.erb:26
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:35
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/views/admin/services/index.html.erb:33
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mActiveStorage::Blob Update (0.6ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = ? WHERE "active_storage_blobs"."id" = ?[0m  [["metadata", "{\"identified\":true,\"width\":1250,\"height\":500,\"analyzed\":true}"], ["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."blob_id" = ?[0m  [["blob_id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/admin/services/index.html.erb:33
+  Rendered admin/services/index.html.erb within layouts/admin (Duration: 12.8ms | Allocations: 18733)
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."id" = ?[0m  [["id", 9]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mService Update (0.0ms)[0m  [1m[33mUPDATE "services" SET "updated_at" = ? WHERE "services"."id" = ?[0m  [["updated_at", "2026-03-28 09:44:12.144306"], ["id", 9]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [80f6b852-f653-433f-9bfa-9d815474d649] Performed ActiveStorage::AnalyzeJob (Job ID: 80f6b852-f653-433f-9bfa-9d815474d649) from Async(default) in 2215.22ms
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 25)
+  Rendered layout layouts/admin.html.erb (Duration: 18.3ms | Allocations: 26410)
+Completed 200 OK in 20ms (Views: 18.0ms | ActiveRecord: 1.0ms | Allocations: 28450)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--6dc1e5f80daec64f53fb68ca7b14797fbc44e1eb/annon.jpg" for 127.0.0.1 at 2026-03-28 13:44:12 +0400
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--6dc1e5f80daec64f53fb68ca7b14797fbc44e1eb", "filename"=>"annon"}
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[36m  Disk Storage (1.3ms) [0m[34mGenerated URL for file at key: qx887oq6rzz7fczkncvkshtg8fpx (http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxeDg4N29xNnJ6ejdmY3prbmN2a3NodGc4ZnB4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiYW5ub24uanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnYW5ub24uanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDMtMjhUMDk6NDk6MTIuMTk1WiIsInB1ciI6ImJsb2Jfa2V5In19--b607b6a4258ceac5144bdbd6176ac2a5a0c8cee2/annon.jpg)[0m
+Redirected to http://localhost:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxeDg4N29xNnJ6ejdmY3prbmN2a3NodGc4ZnB4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiYW5ub24uanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnYW5ub24uanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDMtMjhUMDk6NDk6MTIuMTk1WiIsInB1ciI6ImJsb2Jfa2V5In19--b607b6a4258ceac5144bdbd6176ac2a5a0c8cee2/annon.jpg
+Completed 302 Found in 3ms (ActiveRecord: 0.1ms | Allocations: 2452)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxeDg4N29xNnJ6ejdmY3prbmN2a3NodGc4ZnB4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiYW5ub24uanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnYW5ub24uanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDMtMjhUMDk6NDk6MTIuMTk1WiIsInB1ciI6ImJsb2Jfa2V5In19--b607b6a4258ceac5144bdbd6176ac2a5a0c8cee2/annon.jpg" for 127.0.0.1 at 2026-03-28 13:44:12 +0400
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"annon"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 272)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:44:16 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.6ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:87
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 20.2ms | Allocations: 9118)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 671)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered shared/_footer.html.erb (Duration: 0.5ms | Allocations: 689)
+  Rendered layout layouts/application.html.erb (Duration: 24.9ms | Allocations: 12806)
+Completed 200 OK in 42ms (Views: 25.0ms | ActiveRecord: 1.5ms | Allocations: 17844)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxeDg4N29xNnJ6ejdmY3prbmN2a3NodGc4ZnB4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiYW5ub24uanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnYW5ub24uanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDMtMjhUMDk6NDk6MTIuMTk1WiIsInB1ciI6ImJsb2Jfa2V5In19--b607b6a4258ceac5144bdbd6176ac2a5a0c8cee2/annon.jpg" for 127.0.0.1 at 2026-03-28 13:44:16 +0400
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"annon"}
+Completed 304 Not Modified in 0ms (ActiveRecord: 0.0ms | Allocations: 156)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:44:18 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.3ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:45
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 13.4ms | Allocations: 8530)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 16.9ms | Allocations: 11268)
+Completed 200 OK in 21ms (Views: 16.5ms | ActiveRecord: 1.1ms | Allocations: 12187)
+
+
+Started GET "/contacts?service_id=9" for 127.0.0.1 at 2026-03-28 13:44:21 +0400
+Processing by PagesController#contacts as HTML
+  Parameters: {"service_id"=>"9"}
+  Rendering layout layouts/application.html.erb
+  Rendering pages/contacts.html.erb within layouts/application
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/contacts.html.erb:115
+  Rendered pages/contacts.html.erb within layouts/application (Duration: 5.3ms | Allocations: 2129)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.2ms | Allocations: 4672)
+Completed 200 OK in 14ms (Views: 9.3ms | ActiveRecord: 0.1ms | Allocations: 5069)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:44:40 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:87
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 10.2ms | Allocations: 7521)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 13.0ms | Allocations: 10067)
+Completed 200 OK in 15ms (Views: 12.7ms | ActiveRecord: 0.9ms | Allocations: 10463)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:44:41 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:87
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 9.9ms | Allocations: 7518)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 13.1ms | Allocations: 10090)
+Completed 200 OK in 14ms (Views: 12.8ms | ActiveRecord: 0.6ms | Allocations: 10489)
+
+
+Started GET "/" for 127.0.0.1 at 2026-03-28 13:44:41 +0400
+Processing by PagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/home.html.erb within layouts/application
+  [1m[36mService Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "services" WHERE "services"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:73
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/pages/home.html.erb:82
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:87
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/home.html.erb:86
+  [1m[36mService Load (0.0ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/home.html.erb:256
+  Rendered pages/home.html.erb within layouts/application (Duration: 8.3ms | Allocations: 7548)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 10.4ms | Allocations: 10100)
+Completed 200 OK in 12ms (Views: 10.2ms | ActiveRecord: 0.6ms | Allocations: 10497)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2026-03-28 13:45:01 +0400
+Processing by PagesController#contacts as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/contacts.html.erb within layouts/application
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/contacts.html.erb:115
+  Rendered pages/contacts.html.erb within layouts/application (Duration: 4.6ms | Allocations: 1530)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | Allocations: 4073)
+Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 0.2ms | Allocations: 4404)
+
+
+Started GET "/services" for 127.0.0.1 at 2026-03-28 13:45:06 +0400
+Processing by PagesController#services as HTML
+  [1m[36mService Load (0.2ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/controllers/pages_controller.rb:12:in `group_by'
+  Rendering layout layouts/application.html.erb
+  Rendering pages/services.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:45
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Service"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/views/pages/services.html.erb:43
+  Rendered pages/services.html.erb within layouts/application (Duration: 14.3ms | Allocations: 7892)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.3ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 17.8ms | Allocations: 10625)
+Completed 200 OK in 21ms (Views: 17.2ms | ActiveRecord: 1.3ms | Allocations: 11476)
+
+
+Started GET "/contacts?service_id=9" for 127.0.0.1 at 2026-03-28 13:45:12 +0400
+Processing by PagesController#contacts as HTML
+  Parameters: {"service_id"=>"9"}
+  Rendering layout layouts/application.html.erb
+  Rendering pages/contacts.html.erb within layouts/application
+  [1m[36mService Load (0.1ms)[0m  [1m[34mSELECT "services".* FROM "services" WHERE "services"."active" = ? ORDER BY "services"."position" ASC, "services"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/pages/contacts.html.erb:115
+  Rendered pages/contacts.html.erb within layouts/application (Duration: 2.3ms | Allocations: 1528)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 314)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 18)
+  Rendered shared/_footer.html.erb (Duration: 0.4ms | Allocations: 356)
+  Rendered layout layouts/application.html.erb (Duration: 5.8ms | Allocations: 4096)
+Completed 200 OK in 7ms (Views: 6.0ms | ActiveRecord: 0.1ms | Allocations: 4428)
+
+
+Started GET "/admin/inquiries?status=completed" for 127.0.0.1 at 2026-03-28 13:45:18 +0400
+Processing by Admin::InquiriesController#index as HTML
+  Parameters: {"status"=>"completed"}
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" WHERE "inquiries"."status" = ? LIMIT ? OFFSET ?[0m  [["status", 2], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.3ms | Allocations: 726)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.9ms | Allocations: 3098)
+Completed 200 OK in 14ms (Views: 5.2ms | ActiveRecord: 1.0ms | Allocations: 6869)
+
+
+Started GET "/admin/inquiries" for 127.0.0.1 at 2026-03-28 13:45:18 +0400
+Processing by Admin::InquiriesController#index as HTML
+  [1m[36mAdmin Load (0.3ms)[0m  [1m[34mSELECT "admins".* FROM "admins" WHERE "admins"."id" = ? ORDER BY "admins"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:7:in `index'
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries"[0m
+  ↳ app/controllers/admin/inquiries_controller.rb:10:in `index'
+  [1m[36mInquiry Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/controllers/admin/inquiries_controller.rb:11:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 1]]
+  ↳ app/controllers/admin/inquiries_controller.rb:12:in `index'
+  [1m[36mInquiry Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 2]]
+  ↳ app/controllers/admin/inquiries_controller.rb:13:in `index'
+  Rendering layout layouts/admin.html.erb
+  Rendering admin/inquiries/index.html.erb within layouts/admin
+  [1m[36mInquiry Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "inquiries" LIMIT ? OFFSET ?[0m  [["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/admin/inquiries/index.html.erb:44
+  Rendered admin/inquiries/index.html.erb within layouts/admin (Duration: 1.3ms | Allocations: 714)
+  [1m[36mCACHE Inquiry Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "inquiries" WHERE "inquiries"."status" = ?[0m  [["status", 0]]
+  ↳ app/views/layouts/admin.html.erb:36
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 19)
+  Rendered layout layouts/admin.html.erb (Duration: 4.9ms | Allocations: 3066)
+Completed 200 OK in 16ms (Views: 5.2ms | ActiveRecord: 1.0ms | Allocations: 6742)
+
+

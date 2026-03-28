@@ -1,0 +1,11 @@
+<% content_for :page_title, "Новая услуга" %>
+<% content_for :header_actions do %>
+  <%= link_to admin_services_path, class: "text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1" do %>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    К услугам
+  <% end %>
+<% end %>
+
+<%= render "form", service: @service %>

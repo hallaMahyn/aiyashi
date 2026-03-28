@@ -1,0 +1,85 @@
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+  <%= form_with model: [:admin, service], class: "space-y-5", data: { controller: "image-preview" } do |f| %>
+    <% if service.errors.any? %>
+      <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+        <p class="font-medium text-red-800 text-sm mb-2">Исправьте ошибки:</p>
+        <ul class="list-disc list-inside space-y-1">
+          <% service.errors.full_messages.each do |msg| %>
+            <li class="text-red-700 text-sm"><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div class="sm:col-span-2">
+        <%= f.label :name, "Название услуги *", class: "form-label" %>
+        <%= f.text_field :name, class: "form-input", placeholder: "Имплантация зубов", required: true %>
+      </div>
+
+      <div>
+        <%= f.label :category, "Категория *", class: "form-label" %>
+        <%= f.select :category,
+              Service::CATEGORIES.map { |c| [Service::CATEGORY_LABELS[c], c] },
+              { include_blank: "Выберите категорию" },
+              class: "form-input", required: true %>
+      </div>
+
+      <div>
+        <%= f.label :price_rub, "Цена (₽)", class: "form-label" %>
+        <div class="relative">
+          <%= f.number_field :price_rub, class: "form-input pr-8", placeholder: "45000", min: 0, step: 100 %>
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">₽</span>
+        </div>
+        <p class="text-gray-400 text-xs mt-1">Оставьте пустым для "По запросу"</p>
+      </div>
+
+      <div class="sm:col-span-2">
+        <%= f.label :description, "Описание", class: "form-label" %>
+        <%= f.text_area :description, rows: 4, class: "form-input resize-none",
+              placeholder: "Краткое описание услуги для пациентов..." %>
+      </div>
+
+      <div>
+        <%= f.label :position, "Позиция (порядок)", class: "form-label" %>
+        <%= f.number_field :position, class: "form-input", min: 0, value: service.position || 0 %>
+      </div>
+
+      <div class="flex items-center gap-3 pt-6">
+        <%= f.check_box :active, class: "w-4 h-4 text-primary-600 rounded border-gray-300 focus:ring-primary-500" %>
+        <%= f.label :active, "Услуга активна (видна на сайте)", class: "text-sm font-medium text-gray-700" %>
+      </div>
+
+      <!-- Image upload -->
+      <div class="sm:col-span-2">
+        <%= f.label :image, "Фото услуги", class: "form-label" %>
+        <div class="flex items-start gap-4">
+          <!-- Preview -->
+          <div class="w-32 h-24 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center"
+               data-image-preview-target="preview">
+            <% if service.image.attached? %>
+              <%= image_tag service.image, class: "w-full h-full object-cover" %>
+            <% else %>
+              <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            <% end %>
+          </div>
+          <div>
+            <%= f.file_field :image,
+                  accept: "image/*",
+                  class: "block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer",
+                  data: { action: "change->image-preview#preview", image_preview_target: "input" } %>
+            <p class="text-gray-400 text-xs mt-2">JPEG, PNG, WebP — до 5 МБ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-3 pt-2 border-t border-gray-100">
+      <%= f.submit service.new_record? ? "Добавить услугу" : "Сохранить изменения",
+            class: "btn-primary cursor-pointer" %>
+      <%= link_to "Отмена", admin_services_path, class: "btn-secondary border border-gray-200" %>
+    </div>
+  <% end %>
+</div>

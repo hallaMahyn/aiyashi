@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f0f9f4;
+  --color-primary-100: #d9f0e4;
+  --color-primary-200: #b6e2cc;
+  --color-primary-300: #84cca9;
+  --color-primary-400: #4db084;
+  --color-primary-500: #1a9e5c;
+  --color-primary-600: #168050;
+  --color-primary-700: #115e3b;
+  --color-primary-800: #0d4529;
+  --color-primary-900: #0a301d;
+
+  --color-gold-50: #fefbf0;
+  --color-gold-100: #fef7e0;
+  --color-gold-200: #fdedb8;
+  --color-gold-300: #fbde85;
+  --color-gold-400: #e8b84b;
+  --color-gold-500: #c99a2e;
+  --color-gold-600: #a67820;
+
+  --color-ink: #1c2432;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Raleway", "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-primary-500 text-white font-semibold rounded-full hover:bg-primary-600 transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-primary-600 transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-primary-600 font-semibold rounded-full hover:bg-primary-50 transition-all duration-200 shadow-sm;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-bold text-ink;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-gray-500 mt-3 max-w-2xl;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all placeholder-gray-400;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-badge-new_inquiry  { @apply bg-blue-100 text-blue-800; }
+  .status-badge-in_progress  { @apply bg-yellow-100 text-yellow-800; }
+  .status-badge-completed    { @apply bg-green-100 text-green-800; }
+  .status-badge-cancelled    { @apply bg-red-100 text-red-800; }
+
+  .nav-link {
+    @apply text-gray-600 hover:text-primary-600 font-medium transition-colors duration-150;
+  }
+
+  .nav-link-active {
+    @apply text-primary-600 font-semibold;
+  }
+}

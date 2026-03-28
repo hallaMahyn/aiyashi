@@ -1,0 +1,38 @@
+ru:
+  devise:
+    failure:
+      already_authenticated: "Вы уже вошли в систему."
+      inactive: "Ваш аккаунт ещё не активирован."
+      invalid: "Неверный %{authentication_keys} или пароль."
+      locked: "Ваш аккаунт заблокирован."
+      last_attempt: "Осталась ещё одна попытка, после чего аккаунт будет заблокирован."
+      not_found_in_database: "Неверный %{authentication_keys} или пароль."
+      timeout: "Сессия истекла. Войдите снова."
+      unauthenticated: "Вам нужно войти или зарегистрироваться."
+      unconfirmed: "Вам нужно подтвердить email."
+    sessions:
+      signed_in: "Вы успешно вошли в систему."
+      signed_out: "Вы вышли из системы."
+      already_signed_out: "Вы уже вышли из системы."
+    registrations:
+      signed_up: "Добро пожаловать! Вы успешно зарегистрировались."
+      signed_up_but_inactive: "Вы зарегистрировались, но аккаунт ещё не активирован."
+      signed_up_but_locked: "Вы зарегистрировались, но аккаунт заблокирован."
+      updated: "Данные аккаунта обновлены."
+      update_needs_confirmation: "Данные обновлены, но email нужно подтвердить."
+      destroyed: "Аккаунт удалён."
+    unlocks:
+      send_instructions: "Инструкции по разблокировке отправлены на email."
+      send_paranoid_instructions: "Если аккаунт существует, инструкции отправлены."
+      unlocked: "Ваш аккаунт разблокирован. Войдите в систему."
+    mailer:
+      confirmation_instructions:
+        subject: "Подтверждение email"
+      reset_password_instructions:
+        subject: "Инструкции по сбросу пароля"
+      unlock_instructions:
+        subject: "Инструкции по разблокировке"
+      email_changed:
+        subject: "Email изменён"
+      password_change:
+        subject: "Пароль изменён"
