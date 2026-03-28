@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2026_03_28_091631) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,7 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_28_091631) do
     t.string "name", null: false
     t.string "phone", null: false
     t.string "email"
-    t.integer "service_id"
+    t.bigint "service_id"
     t.text "message"
     t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
