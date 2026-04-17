@@ -1,16 +1,120 @@
 <% content_for :title, "Медицинский туризм в Китай" %>
 
 <!-- Hero Section -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
-  <!-- Background pattern -->
-  <div class="absolute inset-0 opacity-10">
-    <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, #1a9e5c 0%, transparent 50%), radial-gradient(circle at 75% 75%, #e8b84b 0%, transparent 50%);"></div>
-  </div>
-  <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background:#0a0d18">
 
-  <!-- Decorative circles -->
-  <div class="absolute top-20 right-20 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl"></div>
-  <div class="absolute bottom-20 left-20 w-96 h-96 bg-gold-400/10 rounded-full blur-3xl"></div>
+  <!-- Deep gradient base — dark navy with crimson/gold corners -->
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 70% 80% at 90% 10%, rgba(160,20,20,0.35) 0%, transparent 55%), radial-gradient(ellipse 60% 70% at 10% 90%, rgba(155,105,10,0.28) 0%, transparent 55%), radial-gradient(ellipse 80% 80% at 50% 50%, rgba(10,15,30,0.9) 30%, transparent 100%)"></div>
+
+  <!-- Chinese decorative top & bottom border lines -->
+  <div class="absolute top-0 inset-x-0 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(180,30,30,0.6) 30%, rgba(200,150,20,0.6) 70%, transparent 100%)"></div>
+  <div class="absolute bottom-0 inset-x-0 h-px" style="background: linear-gradient(90deg, transparent 0%, rgba(180,30,30,0.6) 30%, rgba(200,150,20,0.6) 70%, transparent 100%)"></div>
+
+  <!-- 祥云 Auspicious clouds — top right -->
+  <svg class="absolute top-0 right-0 opacity-[0.13] pointer-events-none" width="540" height="420" viewBox="0 0 540 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Large cloud -->
+    <g fill="#c41e1e" stroke="#e04040" stroke-width="1.2" stroke-linejoin="round">
+      <path d="M310 200 Q310 162 342 157 Q346 120 375 116 Q405 112 408 148 Q438 142 442 172 Q446 198 423 207 L335 207 Q310 207 310 200Z"/>
+      <path d="M312 204 Q291 221 302 236 Q314 224 325 208"/>
+      <path d="M440 204 Q461 221 450 236 Q438 224 426 208"/>
+    </g>
+    <!-- Medium cloud -->
+    <g fill="#b01818" stroke="#d03030" stroke-width="1" stroke-linejoin="round">
+      <path d="M420 110 Q420 84 444 80 Q447 57 464 54 Q481 51 484 74 Q502 70 505 91 Q508 108 492 114 L436 114 Q420 114 420 110Z"/>
+      <path d="M422 112 Q407 124 415 134 Q422 126 430 114"/>
+      <path d="M503 112 Q518 124 510 134 Q503 126 495 114"/>
+    </g>
+    <!-- Small cloud cluster -->
+    <g fill="#9a1414" stroke="#c03030" stroke-width="0.8" stroke-linejoin="round" opacity="0.9">
+      <path d="M250 290 Q250 268 268 265 Q270 246 283 244 Q296 242 298 260 Q310 257 312 272 Q314 284 303 288 L262 288 Q250 288 250 290Z"/>
+      <path d="M252 288 Q241 298 246 307 Q252 300 258 289"/>
+      <path d="M310 288 Q321 298 316 307 Q310 300 304 289"/>
+    </g>
+    <!-- Tiny accent clouds -->
+    <g fill="#881010" stroke="#bb2020" stroke-width="0.7" opacity="0.7">
+      <path d="M470 220 Q470 207 480 205 Q482 194 489 193 Q496 192 497 202 Q505 200 506 209 Q507 216 501 219 L476 219 Q470 219 470 220Z"/>
+    </g>
+    <g fill="#881010" stroke="#bb2020" stroke-width="0.7" opacity="0.5">
+      <path d="M180 170 Q180 160 188 158 Q189 150 195 149 Q201 148 202 156 Q208 154 209 162 Q210 168 205 170 L186 170 Q180 170 180 170Z"/>
+    </g>
+  </svg>
+
+  <!-- 祥云 Auspicious clouds — bottom left (gold tones) -->
+  <svg class="absolute bottom-0 left-0 opacity-[0.11] pointer-events-none" width="400" height="320" viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#b07800" stroke="#d09020" stroke-width="1.2" stroke-linejoin="round">
+      <path d="M30 200 Q30 165 60 160 Q63 126 90 122 Q118 118 121 152 Q148 146 152 174 Q156 198 134 207 L55 207 Q30 207 30 200Z"/>
+      <path d="M32 204 Q12 220 22 234 Q33 222 44 207"/>
+      <path d="M150 204 Q170 220 160 234 Q149 222 138 207"/>
+    </g>
+    <g fill="#8a5c00" stroke="#b07800" stroke-width="0.9" opacity="0.8">
+      <path d="M150 260 Q150 242 166 239 Q168 223 179 221 Q190 219 192 233 Q202 230 204 243 Q206 254 197 258 L160 258 Q150 258 150 260Z"/>
+      <path d="M152 257 Q143 266 147 274 Q152 267 158 258"/>
+      <path d="M202 257 Q211 266 207 274 Q202 267 196 258"/>
+    </g>
+  </svg>
+
+  <!-- Bamboo — left side -->
+  <svg class="absolute left-0 top-0 h-full w-36 opacity-[0.09] pointer-events-none" viewBox="0 0 144 900" preserveAspectRatio="xMinYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Stalk 1 -->
+    <path d="M28 900 Q24 800 28 700 Q32 600 28 500 Q24 400 28 300 Q32 200 28 100 Q24 20 28 0" stroke="#6aaa6a" stroke-width="12" stroke-linecap="round"/>
+    <ellipse cx="28" cy="750" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="28" cy="650" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="28" cy="550" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="28" cy="450" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="28" cy="350" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="28" cy="250" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="28" cy="150" rx="10" ry="5" fill="#5a8a5a"/>
+    <!-- Leaves stalk 1 -->
+    <path d="M28 700 Q65 682 72 700 Q50 697 28 700" fill="#5a8a5a"/>
+    <path d="M28 600 Q-8 582 -16 598 Q4 596 28 600" fill="#5a8a5a"/>
+    <path d="M28 500 Q63 483 69 499 Q48 496 28 500" fill="#5a8a5a"/>
+    <path d="M28 400 Q-6 382 -13 398 Q6 396 28 400" fill="#5a8a5a"/>
+    <path d="M28 300 Q64 282 70 298 Q50 295 28 300" fill="#5a8a5a"/>
+    <path d="M28 200 Q-5 182 -12 198 Q8 196 28 200" fill="#5a8a5a"/>
+    <!-- Stalk 2 (thinner, offset) -->
+    <path d="M60 900 Q57 820 60 740 Q63 660 60 580 Q57 500 60 420 Q63 340 60 260 Q57 180 60 100" stroke="#5a9a5a" stroke-width="9" stroke-linecap="round" opacity="0.7"/>
+    <ellipse cx="60" cy="820" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="60" cy="740" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="60" cy="660" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="60" cy="580" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="60" cy="500" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="60" cy="420" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M60 780 Q90 764 96 778 Q76 775 60 780" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M60 700 Q32 684 26 698 Q42 695 60 700" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M60 620 Q88 605 93 618 Q74 615 60 620" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M60 540 Q34 524 28 538 Q44 535 60 540" fill="#4a7a4a" opacity="0.7"/>
+  </svg>
+
+  <!-- Bamboo — right side (mirrored) -->
+  <svg class="absolute right-0 top-0 h-full w-36 opacity-[0.09] pointer-events-none" viewBox="0 0 144 900" preserveAspectRatio="xMaxYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M116 900 Q120 800 116 700 Q112 600 116 500 Q120 400 116 300 Q112 200 116 100 Q120 20 116 0" stroke="#6aaa6a" stroke-width="12" stroke-linecap="round"/>
+    <ellipse cx="116" cy="750" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="116" cy="650" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="116" cy="550" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="116" cy="450" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="116" cy="350" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="116" cy="250" rx="10" ry="5" fill="#5a8a5a"/>
+    <ellipse cx="116" cy="150" rx="10" ry="5" fill="#5a8a5a"/>
+    <path d="M116 700 Q79 682 72 700 Q94 697 116 700" fill="#5a8a5a"/>
+    <path d="M116 600 Q152 582 160 598 Q140 596 116 600" fill="#5a8a5a"/>
+    <path d="M116 500 Q81 483 75 499 Q96 496 116 500" fill="#5a8a5a"/>
+    <path d="M116 400 Q150 382 157 398 Q138 396 116 400" fill="#5a8a5a"/>
+    <path d="M116 300 Q80 282 74 298 Q94 295 116 300" fill="#5a8a5a"/>
+    <path d="M116 200 Q149 182 156 198 Q136 196 116 200" fill="#5a8a5a"/>
+    <path d="M84 900 Q87 820 84 740 Q81 660 84 580 Q87 500 84 420 Q81 340 84 260 Q87 180 84 100" stroke="#5a9a5a" stroke-width="9" stroke-linecap="round" opacity="0.7"/>
+    <ellipse cx="84" cy="820" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="84" cy="740" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="84" cy="660" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="84" cy="580" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <ellipse cx="84" cy="500" rx="8" ry="4" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M84 780 Q54 764 48 778 Q68 775 84 780" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M84 700 Q112 684 118 698 Q102 695 84 700" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M84 620 Q56 605 51 618 Q70 615 84 620" fill="#4a7a4a" opacity="0.7"/>
+    <path d="M84 540 Q110 524 116 538 Q100 535 84 540" fill="#4a7a4a" opacity="0.7"/>
+  </svg>
+
+  <!-- Subtle warm glow behind text area -->
+  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 50% 40% at 50% 45%, rgba(20,35,60,0.6) 0%, transparent 100%)"></div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-24">
     <!-- Trust badge -->
