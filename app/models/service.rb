@@ -1,15 +1,16 @@
 class Service < ApplicationRecord
   has_one_attached :image
 
-  CATEGORIES = %w[dentistry ophthalmology orthopedics oncology cosmetic checkup].freeze
+  CATEGORIES = %w[therapy periodontology orthodontics implantology prosthodontics dental_lab xray].freeze
 
   CATEGORY_LABELS = {
-    "dentistry"     => "Стоматология",
-    "ophthalmology" => "Офтальмология",
-    "orthopedics"   => "Ортопедия",
-    "oncology"      => "Онкология",
-    "cosmetic"      => "Косметология",
-    "checkup"       => "Чекап"
+    "therapy"        => "Терапия",
+    "periodontology" => "Пародонтология",
+    "orthodontics"   => "Ортодонтия",
+    "implantology"   => "Имплантология",
+    "prosthodontics" => "Ортопедия (протезирование)",
+    "dental_lab"     => "Зуботехническая лаборатория",
+    "xray"           => "Рентгенография"
   }.freeze
 
   validates :name,     presence: true, length: { maximum: 120 }
@@ -25,11 +26,13 @@ class Service < ApplicationRecord
   end
 
   def price_display
-    if price_rub
+    if price_rub.nil?
+      "По запросу"
+    elsif price_rub.zero?
+      "Бесплатно"
+    else
       formatted = price_rub.to_i.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\1 ').reverse
       "от #{formatted} ₽"
-    else
-      "По запросу"
     end
   end
 end
