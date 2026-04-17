@@ -1,97 +1,108 @@
 <% content_for :title, "Услуги и цены" %>
 
 <!-- Page hero -->
-<section class="bg-primary-50 py-14">
+<section class="bg-slate-50 border-b border-gray-200 py-10">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <nav class="text-sm text-gray-400 mb-4">
+    <nav class="text-sm text-gray-400 mb-3">
       <%= link_to "Главная", root_path, class: "hover:text-primary-600 transition-colors" %>
-      <span class="mx-2">›</span>
-      <span class="text-gray-600">Услуги</span>
-    </nav>
-    <h1 class="section-title mb-3">Услуги и цены</h1>
-    <p class="section-subtitle">Лечение в лучших клиниках Китая по фиксированным ценам</p>
-  </div>
-</section>
-
-<!-- Category filter -->
-<section class="bg-white border-b border-gray-100 sticky top-16 z-30">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
-      <%= link_to "Все", services_page_path,
-            class: "flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors #{@selected_category.blank? ? 'bg-primary-500 text-white' : 'text-gray-500 hover:text-primary-600 hover:bg-primary-50'}" %>
-      <% Service::CATEGORIES.each do |cat| %>
-        <%= link_to Service::CATEGORY_LABELS[cat], services_page_path(category: cat),
-              class: "flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors #{@selected_category == cat ? 'bg-primary-500 text-white' : 'text-gray-500 hover:text-primary-600 hover:bg-primary-50'}" %>
+      <span class="mx-2">—</span>
+      <span class="text-gray-600">Цены</span>
+      <% if @selected_category.present? %>
+        <span class="mx-2">—</span>
+        <span class="text-gray-800 font-medium"><%= Service::CATEGORY_LABELS[@selected_category] %></span>
       <% end %>
-    </div>
+    </nav>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-ink">
+      <%= @selected_category.present? ? Service::CATEGORY_LABELS[@selected_category] : "Услуги и цены" %>
+    </h1>
   </div>
 </section>
 
-<!-- Services by category -->
-<section class="py-12 bg-slate-50 min-h-96">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <% if @services_by_category.any? %>
-      <% @services_by_category.each do |category, services| %>
-        <div class="mb-12">
-          <h2 class="text-2xl font-display font-bold text-ink mb-6 flex items-center gap-3">
-            <span class="w-1 h-7 bg-primary-500 rounded-full"></span>
-            <%= Service::CATEGORY_LABELS[category] || category %>
-          </h2>
-          <div class="space-y-4">
-            <% services.each do |service| %>
-              <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row gap-6">
-                <% if service.image.attached? %>
-                  <div class="sm:w-40 sm:h-32 w-full h-44 flex-shrink-0">
-                    <%= image_tag service.image, class: "w-full h-full object-cover rounded-xl", alt: service.name %>
+<!-- Two-column layout -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="flex gap-8 items-start">
+
+    <!-- Sidebar: category navigation -->
+    <aside class="hidden md:block w-64 flex-shrink-0">
+      <div class="bg-white border border-gray-200 rounded-lg overflow-hidden sticky top-24">
+        <% Service::CATEGORIES.each do |cat| %>
+          <%= link_to services_page_path(category: cat),
+                class: "flex items-center gap-2 px-5 py-3.5 text-sm border-b border-gray-100 last:border-b-0 transition-colors #{@selected_category == cat ? 'bg-primary-50 text-primary-700 font-semibold border-l-4 border-l-primary-500' : 'text-gray-700 hover:bg-gray-50 hover:text-primary-600'}" do %>
+            <%= Service::CATEGORY_LABELS[cat] %>
+          <% end %>
+        <% end %>
+        <% if @selected_category.present? %>
+          <div class="border-t border-gray-200">
+            <%= link_to "Все категории", services_page_path,
+                  class: "flex items-center gap-2 px-5 py-3 text-sm text-gray-400 hover:text-primary-600 transition-colors" %>
+          </div>
+        <% end %>
+      </div>
+    </aside>
+
+    <!-- Mobile: horizontal category tabs -->
+    <div class="md:hidden w-full mb-6 -mt-2">
+      <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <%= link_to "Все", services_page_path,
+              class: "flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-colors #{@selected_category.blank? ? 'bg-primary-500 text-white border-primary-500' : 'border-gray-300 text-gray-600 hover:border-primary-400 hover:text-primary-600'}" %>
+        <% Service::CATEGORIES.each do |cat| %>
+          <%= link_to Service::CATEGORY_LABELS[cat], services_page_path(category: cat),
+                class: "flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-colors #{@selected_category == cat ? 'bg-primary-500 text-white border-primary-500' : 'border-gray-300 text-gray-600 hover:border-primary-400 hover:text-primary-600'}" %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Main content: service rows grouped by category -->
+    <main class="flex-1 min-w-0">
+      <% if @services_by_category.any? %>
+        <% @services_by_category.each do |category, services| %>
+          <div class="mb-10">
+            <!-- Category heading (shown when "All" is selected) -->
+            <% if @selected_category.blank? %>
+              <h2 class="text-xl font-display font-bold text-ink mb-4 pb-3 border-b-2 border-primary-500 inline-block">
+                <%= Service::CATEGORY_LABELS[category] %>
+              </h2>
+            <% end %>
+
+            <!-- Service rows -->
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <% services.each_with_index do |service, i| %>
+                <div class="flex items-center gap-4 px-6 py-4 <%= i < services.size - 1 ? 'border-b border-gray-100' : '' %> hover:bg-gray-50 transition-colors group">
+                  <!-- Name + description -->
+                  <div class="flex-1 min-w-0">
+                    <p class="font-semibold text-ink text-sm sm:text-base leading-snug"><%= service.name %></p>
+                    <% if service.description.present? %>
+                      <p class="text-gray-400 text-xs mt-0.5 leading-relaxed"><%= service.description %></p>
+                    <% end %>
                   </div>
-                <% else %>
-                  <div class="sm:w-40 sm:h-32 w-full h-32 flex-shrink-0 bg-primary-50 rounded-xl flex items-center justify-center">
-                    <svg class="w-10 h-10 text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                    </svg>
+                  <!-- Price -->
+                  <div class="flex-shrink-0 text-right w-32 sm:w-40">
+                    <span class="text-primary-600 font-bold text-base sm:text-lg whitespace-nowrap"><%= service.price_display %></span>
                   </div>
-                <% end %>
-                <div class="flex-1">
-                  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                    <div>
-                      <h3 class="font-display font-semibold text-xl text-ink mb-2"><%= service.name %></h3>
-                      <% if service.description.present? %>
-                        <p class="text-gray-500 text-sm leading-relaxed"><%= service.description %></p>
-                      <% end %>
-                    </div>
-                    <div class="flex-shrink-0 text-right">
-                      <div class="text-2xl font-display font-bold text-primary-600"><%= service.price_display %></div>
-                      <%= link_to "Записаться", contacts_path(service_id: service.id), class: "mt-2 inline-block btn-primary text-sm py-2 px-4" %>
-                    </div>
+                  <!-- CTA button -->
+                  <div class="flex-shrink-0 hidden sm:block">
+                    <%= link_to contacts_path(service_id: service.id),
+                          class: "btn-primary text-sm py-2 px-4 whitespace-nowrap" do %>
+                      Записаться
+                    <% end %>
                   </div>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
+
+            <!-- Mobile: single CTA at bottom of category -->
+            <div class="sm:hidden mt-3 text-center">
+              <%= link_to "Записаться на приём", contacts_path, class: "btn-primary text-sm px-6 py-2.5" %>
+            </div>
           </div>
+        <% end %>
+      <% else %>
+        <div class="text-center py-20 bg-white border border-gray-200 rounded-lg">
+          <p class="text-gray-400 mb-4">Услуги не найдены</p>
+          <%= link_to "Посмотреть все услуги", services_page_path, class: "btn-primary" %>
         </div>
       <% end %>
-    <% else %>
-      <div class="text-center py-20">
-        <div class="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
-          <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-          </svg>
-        </div>
-        <h3 class="font-display font-semibold text-gray-600 text-xl mb-2">Услуги не найдены</h3>
-        <p class="text-gray-400 mb-6">По выбранной категории пока нет услуг</p>
-        <%= link_to "Посмотреть все услуги", services_page_path, class: "btn-primary" %>
-      </div>
-    <% end %>
-  </div>
-</section>
+    </main>
 
-<!-- Bottom CTA -->
-<section class="py-14 bg-white">
-  <div class="max-w-3xl mx-auto px-4 text-center">
-    <h2 class="section-title mb-4">Не нашли нужную услугу?</h2>
-    <p class="text-gray-500 mb-6">Мы работаем с широким спектром медицинских направлений. Напишите нам — мы подберём подходящий вариант.</p>
-    <%= link_to contacts_path, class: "btn-primary" do %>
-      Задать вопрос
-    <% end %>
   </div>
-</section>
+</div>
