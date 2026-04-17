@@ -7,8 +7,7 @@
 !/log/.keep
 
 # Temp files
-/tmp/*
-!/tmp/.keep
+/tmp/
 
 # Database
 /db/*.sqlite3
@@ -28,8 +27,7 @@
 /public/assets
 /public/packs
 /node_modules
-/app/assets/builds/*
-!/app/assets/builds/.keep
+/app/assets/builds/
 
 # Active Storage (local dev)
 /storage/*

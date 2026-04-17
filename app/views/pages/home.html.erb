@@ -71,7 +71,7 @@
 
 <!-- Services Preview -->
 <% if @featured_services.any? %>
-<section class="py-20 bg-white">
+<section id="services" class="py-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
       <h2 class="section-title">Наши услуги</h2>
@@ -162,25 +162,26 @@
       <p class="section-subtitle mx-auto text-center">Простой путь от заявки до успешного лечения</p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-5 gap-6">
-      <% [
-        { num: "1", title: "Заявка", desc: "Оставьте заявку на сайте или позвоните нам" },
-        { num: "2", title: "Консультация", desc: "Бесплатная консультация и подбор оптимальной клиники" },
-        { num: "3", title: "Планирование", desc: "Оформление визы, бронирование перелёта и жилья" },
-        { num: "4", title: "Лечение", desc: "Лечение в Китае с куратором-сопровождающим" },
-        { num: "5", title: "Возвращение", desc: "Возвращение домой с результатами и поддержкой" }
-      ].each_with_index do |step, idx| %>
-        <div class="text-center relative">
-          <div class="w-14 h-14 mx-auto bg-gold-400 rounded-full flex items-center justify-center mb-4 shadow-md">
-            <span class="text-white font-display font-bold text-xl"><%= step[:num] %></span>
+    <!-- Сквозная линия за кружками -->
+    <div class="relative">
+      <div class="hidden sm:block absolute top-7 left-[10%] right-[10%] h-0.5 bg-gold-200 z-0"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-5 gap-6">
+        <% [
+          { num: "1", title: "Заявка", desc: "Оставьте заявку на сайте или позвоните нам" },
+          { num: "2", title: "Консультация", desc: "Бесплатная консультация и подбор оптимальной клиники" },
+          { num: "3", title: "Планирование", desc: "Оформление визы, бронирование перелёта и жилья" },
+          { num: "4", title: "Лечение", desc: "Лечение в Китае с куратором-сопровождающим" },
+          { num: "5", title: "Возвращение", desc: "Возвращение домой с результатами и поддержкой" }
+        ].each do |step| %>
+          <div class="text-center relative z-10">
+            <div class="w-14 h-14 mx-auto bg-gold-400 rounded-full flex items-center justify-center mb-4 shadow-md">
+              <span class="text-white font-display font-bold text-xl"><%= step[:num] %></span>
+            </div>
+            <h3 class="font-display font-semibold text-ink mb-2"><%= step[:title] %></h3>
+            <p class="text-gray-500 text-sm leading-relaxed"><%= step[:desc] %></p>
           </div>
-          <h3 class="font-display font-semibold text-ink mb-2"><%= step[:title] %></h3>
-          <p class="text-gray-500 text-sm leading-relaxed"><%= step[:desc] %></p>
-          <% if idx < 4 %>
-            <div class="hidden sm:block absolute top-7 left-full w-full h-0.5 bg-gold-200 -translate-x-1/2 z-0"></div>
-          <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
