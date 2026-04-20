@@ -29,7 +29,11 @@ COPY . .
 
 RUN bundle exec bootsnap precompile app/ lib/
 
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN mkdir -p app/assets/builds && \
+    SECRET_KEY_BASE_DUMMY=1 ./bin/rails tailwindcss:build && \
+    ls app/assets/builds/ && \
+    SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && \
+    ls public/assets/ | grep tailwind
 
 
 # ── Final stage ───────────────────────────────────────────────────────────────
