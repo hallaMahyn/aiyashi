@@ -76,13 +76,13 @@
                     <% end %>
                   </div>
                   <!-- Price -->
-                  <div class="flex-shrink-0 text-right w-32 sm:w-40">
+                  <div class="flex-shrink-0 text-right w-24 sm:w-40">
                     <span class="text-primary-600 font-bold text-base sm:text-lg whitespace-nowrap"><%= service.price_display %></span>
                   </div>
                   <!-- CTA button -->
-                  <div class="flex-shrink-0 hidden sm:block">
+                  <div class="flex-shrink-0">
                     <%= link_to contacts_path(service_id: service.id),
-                          class: "btn-primary text-sm py-2 px-4 whitespace-nowrap" do %>
+                          class: "btn-primary text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4 whitespace-nowrap" do %>
                       Записаться
                     <% end %>
                   </div>
@@ -90,10 +90,6 @@
               <% end %>
             </div>
 
-            <!-- Mobile: single CTA at bottom of category -->
-            <div class="sm:hidden mt-3 text-center">
-              <%= link_to "Записаться на приём", contacts_path, class: "btn-primary text-sm px-6 py-2.5" %>
-            </div>
           </div>
         <% end %>
       <% else %>
