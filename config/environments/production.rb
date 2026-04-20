@@ -49,7 +49,8 @@ Rails.application.configure do
   # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # Set RAILS_FORCE_SSL=false in docker-compose.yml to disable for local testing.
+  config.force_ssl = ENV.fetch("RAILS_FORCE_SSL", "true") == "true"
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)

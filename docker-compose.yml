@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: aiyashi
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: aiyashi_production
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aiyashi -d aiyashi_production"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_FORCE_SSL: "false"
+      DB_HOST: db
+      DB_NAME: aiyashi_production
+      DB_USERNAME: aiyashi
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - app_storage:/rails/storage
+
+volumes:
+  postgres_data:
+  app_storage:

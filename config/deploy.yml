@@ -1,0 +1,52 @@
+service: aiyashi
+image: halladocker/aiyashi
+
+servers:
+  web:
+    - 185.221.154.8
+
+proxy:
+  ssl: false
+  host: 185.221.154.8
+
+registry:
+  username: halladocker
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    RAILS_LOG_TO_STDOUT: "1"
+    RAILS_SERVE_STATIC_FILES: "1"
+    RAILS_FORCE_SSL: "false"
+    DB_HOST: aiyashi-db
+    DB_NAME: aiyashi_production
+    DB_USERNAME: aiyashi
+  secret:
+    - RAILS_MASTER_KEY
+    - DB_PASSWORD
+
+ssh:
+  user: deploy
+
+volumes:
+  - "aiyashi_storage:/rails/storage"
+
+asset_path: /rails/public/assets
+
+builder:
+  arch: amd64
+
+accessories:
+  db:
+    image: postgres:16
+    host: 185.221.154.8
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: aiyashi
+        POSTGRES_DB: aiyashi_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data

@@ -23,6 +23,9 @@
 .env.*
 !/env.example
 
+# Kamal secrets
+.kamal/secrets
+
 # Assets
 /public/assets
 /public/packs
